@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Log In | Findly AI</title>
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <div class="brand">
+      <svg class="pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><path d="M12 6.5l3 1.7v3.6l-3 1.7-3-1.7V8.2z" class="cube"/></svg>
+      <div><h1>Findly AI</h1><p>An Intelligent Lost and Found<br>Matching System</p></div>
+    </div>
+    <div class="pitch">
+      <h2>Lost something?<br>Found something?</h2>
+      <p>Let AI help you match, reunite, and return belongings to their rightful owners on campus.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <form class="box" id="loginForm" novalidate>
+      <svg class="boxicon" viewBox="0 0 32 32"><path d="M4 14l10-5 10 5v10l-10 5-10-5zM4 14l10 5 10-5M14 19v10M22 4l-2 4M27 7l-4 2M17 2v4"/></svg>
+      <h2>Welcome Back!</h2>
+      <p class="sub">Sign in to your account</p>
+
+      <label class="field">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8"/></svg>
+        <input id="user" type="email" placeholder="Email" autocomplete="email" required>
+      </label>
+      <label class="field">
+        <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+        <input id="pass" type="password" placeholder="Password" autocomplete="current-password" required>
+        <button type="button" id="eye" aria-label="Show password"><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </label>
+
+      <div class="opts">
+        <label class="chk"><input type="checkbox" id="remember"> Remember me</label>
+        <a href="#">Forgot password?</a>
+      </div>
+      <p class="err" id="err" hidden></p>
+
+      <button class="btn" type="submit">Log In</button>
+      <div class="or"><span>or</span></div>
+      <a class="btn out" href="register.html">
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8M19 8v6M22 11h-6"/></svg>
+        Create an Account
+      </a>
+    </form>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

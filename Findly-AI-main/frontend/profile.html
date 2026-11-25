@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Profile • Findly AI</title><link rel="stylesheet" href="css/app.css"></head><body data-page="profile" data-title="My Profile" data-sub="Manage your account details and security.">
+
+<section class="stats">
+<div class="stat"><svg class="ic" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"/></svg><b id="sLost">0</b><span>Lost Reports</span></div>
+<div class="stat g"><svg class="ic" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"/></svg><b id="sFound">0</b><span>Found Reports</span></div>
+<div class="stat v"><svg class="ic" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><b id="sClaims">0</b><span>Claims</span></div>
+<div class="stat r"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><b id="sResolved">0</b><span>Resolved</span></div>
+</section>
+
+<section class="grid2">
+  <div class="card">
+    <h2>Personal Information</h2>
+    <div id="msg"></div>
+    <form id="profileForm">
+      <label for="fullName">Full name</label>
+      <input id="fullName" required maxlength="80" placeholder="Your full name">
+      <div class="two">
+        <div><label for="studentId">Student ID</label><input id="studentId" maxlength="30" placeholder="e.g. 2023-00123"></div>
+        <div><label for="email">Email</label><input id="email" type="email" disabled></div>
+      </div>
+      <div class="acts"><button class="btn" type="submit" id="saveBtn">Save Changes</button></div>
+    </form>
+
+    <h2 style="margin-top:28px">Change Password</h2>
+    <form id="pwForm">
+      <div class="two">
+        <div><label for="pw1">New password</label><input id="pw1" type="password" minlength="8" autocomplete="new-password" placeholder="At least 8 characters"></div>
+        <div><label for="pw2">Confirm password</label><input id="pw2" type="password" minlength="8" autocomplete="new-password" placeholder="Repeat password"></div>
+      </div>
+      <div class="acts"><button class="btn o" type="submit" id="pwBtn">Update Password</button></div>
+    </form>
+  </div>
+
+  <div class="card" style="text-align:center">
+    <div class="avatar" id="avatar" style="width:84px;height:84px;font-size:30px;margin:6px auto 12px">?</div>
+    <h2 id="nameView" style="margin-bottom:6px">—</h2>
+    <span class="tag l" id="roleView">student</span>
+    <dl style="text-align:left;margin-top:20px;font-size:14px;display:grid;grid-template-columns:90px 1fr;gap:10px">
+      <dt style="font-weight:600;color:var(--p)">Email</dt><dd id="emailView" style="word-break:break-all">—</dd>
+      <dt style="font-weight:600;color:var(--p)">Student ID</dt><dd id="sidView">—</dd>
+      <dt style="font-weight:600;color:var(--p)">Joined</dt><dd id="joinView">—</dd>
+    </dl>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/dashboard-auth.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/profile.js"></script>
+</body></html>

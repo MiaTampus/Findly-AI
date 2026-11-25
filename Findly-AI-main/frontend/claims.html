@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Claims • Findly AI</title><link rel="stylesheet" href="css/app.css"></head><body data-page="claims" data-title="Claims" data-sub="Track ownership claims and their review status.">
+
+<section class="stats">
+<div class="stat"><svg class="ic" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><b id="sTotal">0</b><span>Total Claims</span></div>
+<div class="stat g"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b id="sPending">0</b><span>Pending</span></div>
+<div class="stat r"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><b id="sApproved">0</b><span>Approved</span></div>
+<div class="stat v"><svg class="ic" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg><b id="sRejected">0</b><span>Rejected</span></div>
+</section>
+
+<section class="card">
+  <h2 style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span id="listTitle">My Claims</span>
+    <span style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap" id="filters">
+      <button class="btn sm" data-f="all">All</button>
+      <button class="btn sm o" data-f="pending">Pending</button>
+      <button class="btn sm o" data-f="approved">Approved</button>
+      <button class="btn sm o" data-f="rejected">Rejected</button>
+    </span>
+  </h2>
+  <div id="msg"></div>
+  <div id="list"><p style="color:var(--mut)">Loading claims…</p></div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/dashboard-auth.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/claims-modal.js"></script>
+<script src="js/claims.js"></script>
+</body></html>

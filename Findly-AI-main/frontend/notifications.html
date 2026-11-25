@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Notifications • Findly AI</title><link rel="stylesheet" href="css/app.css"></head><body data-page="notifications" data-title="Notifications" data-sub="Updates on your matches and claims.">
+
+<section class="card">
+  <h2 style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span>Recent Activity</span>
+    <span style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
+      <span id="filters" style="display:flex;gap:8px">
+        <button class="btn sm" data-f="all">All</button>
+        <button class="btn sm o" data-f="unread">Unread</button>
+      </span>
+      <button class="btn sm o" id="markAll">Mark all as read</button>
+    </span>
+  </h2>
+  <div id="list"><p style="color:var(--mut)">Loading notifications…</p></div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/dashboard-auth.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/notifications.js"></script>
+</body></html>
