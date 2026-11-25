@@ -1,54 +1,59 @@
-
-const supabaseClient = window.supabase.createClient(
-  'https://iulfushvckvbvfbutjlh.supabase.co',
-  'YOUR_SUPABASE_PUBLISHABLE_KEY'
-);
+const supabaseClient = window.supabaseClient;
 
 const form = document.getElementById('loginForm');
 const pass = document.getElementById('pass');
 const err = document.getElementById('err');
 
-// show / hide password
 document.getElementById('eye').onclick = () => {
-  pass.type = pass.type === 'password' ? 'text' : 'password';
+    pass.type = pass.type === 'password' ? 'text' : 'password';
 };
 
+function showError(message) {
+    err.textContent = message;
+    err.hidden = false;
+}
+
 form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const user = document.getElementById('user').value.trim();
+    const email = document.getElementById('user').value.trim();
+    const password = pass.value;
 
-  if (!user || !pass.value) {
-    err.textContent = 'Please enter your Student ID/Email and password.';
-    err.hidden = false;
-    return;
-  }
+    if (!email || !password) {
+        showError('Please enter your email and password.');
+        return;
+    }
 
-  err.hidden = true;
+    err.hidden = true;
 
-  const submitButton = form.querySelector('[type="submit"]');
-  if (submitButton) submitButton.disabled = true;
+    const submitButton = form.querySelector('[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
 
-  try {
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email: user,
-      password: pass.value
-    });
+    try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+        });
 
-    if (error) throw error;
+        if (error) throw error;
 
-    window.location.href = 'dashboard.html';
+        if (!data.session) {
+            showError('Please verify your email before logging in.');
+            return;
+        }
 
-  } catch (error) {
-    console.error('Login error:', error);
+        window.location.href = 'dashboard.html';
 
-    err.textContent = error.message === 'Invalid login credentials'
-      ? 'Incorrect email or password.'
-      : error.message;
+    } catch (error) {
+        console.error('Login error:', error);
 
-    err.hidden = false;
+        showError(
+            error.message === 'Invalid login credentials'
+                ? 'Incorrect email or password. Check whether your email is verified.'
+                : error.message
+        );
 
-  } finally {
-    if (submitButton) submitButton.disabled = false;
-  }
+    } finally {
+        if (submitButton) submitButton.disabled = false;
+    }
 });

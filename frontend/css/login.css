@@ -1,56 +1,388 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
-:root{--p:#6C3CE7;--s:#A78BFA;--bg:#F3EBFF;--t:#1F2937}
-*{box-sizing:border-box;margin:0}
-body{font-family:Inter,sans-serif;color:var(--t);background:var(--bg);min-height:100vh}
-svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.wrap{display:grid;grid-template-columns:1.05fr 1fr;min-height:100vh}
-/* hero */
-.hero{position:relative;overflow:hidden;color:#fff;padding:40px 40px 50%;display:flex;flex-direction:column;justify-content:flex-start;background:linear-gradient(180deg,#6C3CE7 0%,#7B54EE 50%,#8F6DF3 100%)}
-.hero::before{content:"";position:absolute;inset:auto 0 0 0;height:50%;background:url('../assets/campus.jpg') left bottom/cover no-repeat;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 40%);mask-image:linear-gradient(to bottom,transparent 0,#000 40%)}
-.brand,.pitch{position:relative;z-index:2}
-.pitch{margin:auto;text-align:center;text-shadow:0 2px 10px rgba(40,10,120,.55)}
-.brand{display:flex;align-items:center;gap:14px}
-.pin{width:56px;height:56px;fill:#fff;stroke:none;flex:none}
-.pin .cube{fill:none;stroke:var(--p);stroke-width:1.6}
-.brand h1{font:700 38px Poppins}
-.brand p{font-size:13px;opacity:.9;line-height:1.4}
-.pitch h2{font:700 32px/1.25 Poppins;margin-bottom:12px}
-.pitch p{max-width:340px;margin:0 auto;line-height:1.6;opacity:.95}
-/* panel */
-.panel{display:grid;place-items:center;padding:32px}
-.box{width:100%;max-width:400px;text-align:center}
-.boxicon{width:64px;height:64px;color:var(--p);margin-bottom:6px}
-.box h2{font:700 28px Poppins}
-.sub{margin:6px 0 24px;font-size:15px}
-.field{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #DDD6F3;border-radius:12px;padding:0 14px;height:50px;margin-bottom:14px}
-.field:focus-within{border-color:var(--p);box-shadow:0 0 0 3px rgba(108,60,231,.15)}
-.field svg{width:20px;height:20px;flex:none}
-.field input{flex:1;border:0;outline:0;font:15px Inter;background:none;min-width:0}
-.field button{background:none;border:0;cursor:pointer;color:var(--t);display:grid}
-.opts{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin:4px 0 18px}
-.chk{display:flex;gap:8px;align-items:center;cursor:pointer}
-.chk input{accent-color:var(--p);width:16px;height:16px}
-.opts a{color:var(--p);font-weight:500;text-decoration:none}
-.err{color:#DC2626;font-size:13px;margin-bottom:12px}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:50px;border:2px solid var(--p);border-radius:12px;background:var(--p);color:#fff;font:600 16px Inter;cursor:pointer;text-decoration:none}
-.btn:hover{filter:brightness(1.08)}
-.btn svg{width:22px;height:22px}
-.btn.out{background:#fff;color:var(--p)}
-.or{display:flex;align-items:center;gap:12px;margin:16px 0;font-size:13px}
-.or::before,.or::after{content:"";flex:1;height:1px;background:#DDD6F3}
-/* mobile */
-@media(max-width:768px){
-  body{background:#fff}
-  .wrap{display:block}
-  .hero::before{display:none}
-  .hero{height:300px;padding:0;border-radius:0;justify-content:flex-end;align-items:center;text-align:center;
-    background:linear-gradient(180deg,rgba(255,255,255,0) 35%,#fff 92%),url('../assets/campus.jpg') center/cover,#E9DEFF}
-  .brand{flex-direction:column;gap:2px;color:var(--p);padding-bottom:6px}
-  .brand h1{font-size:28px;color:var(--t)}
-  .brand p{color:var(--t);font-size:11px}
-  .pin{width:44px;height:44px;fill:var(--p)}.pin .cube{stroke:#fff}
-  .pitch,.boxicon{display:none}
-  .panel{padding:8px 24px 32px;display:block}
-  .box{margin:0 auto}.box h2{font-size:24px}.sub{display:none}
-  .field{height:46px}.btn{height:46px;font-size:15px}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap');
+
+:root {
+  --navy: #16257A;
+  --gold: #E6A810;
+  --gold2: #F5BC1C;
+  --sky: #DCEBFA;
+  --text: #1F2937;
+  --line: #CBD3E6;
+  --white: #FFFFFF;
+  /* sizes scale with the screen so it fills the page */
+  --field-h: clamp(44px, 5.4vh, 52px);
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+html, body { min-height: 100%; }
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: Inter, sans-serif;
+  color: var(--text);
+  background: var(--white);
+}
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================
+   FULL-SCREEN LAYOUT
+========================= */
+.wrap {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--white);
+}
+
+/* =========================
+   LEFT / CAMPUS
+========================= */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: clamp(32px, 5vh, 64px) clamp(32px, 4.5vw, 80px);
+  color: var(--text);
+  background: linear-gradient(180deg, #8FC0EE 0%, #C4DDF5 45%, #EAF3FC 100%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: auto 0 0;
+  height: 62%;
+  background: url('../assets/campus.jpg') left bottom / cover no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 24%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 24%);
+}
+
+/* gold + navy curve on the right edge of the hero */
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: -10%;
+  right: -34px;
+  width: 80px;
+  height: 120%;
+  background: var(--gold2);
+  border-radius: 50%;
+  transform: rotate(10deg);
+  pointer-events: none;
+}
+
+/* ---------- brand ---------- */
+.brand {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1vw, 16px);
+  color: var(--navy);
+}
+
+.pin {
+  width: clamp(52px, 4vw, 68px);
+  height: clamp(52px, 4vw, 68px);
+  flex: none;
+  fill: var(--gold2);
+  stroke: none;
+}
+
+.pin .cube {
+  fill: var(--navy);
+  stroke: var(--white);
+  stroke-width: 1.5;
+}
+
+.brand h1 {
+  font: 700 clamp(32px, 3vw, 46px)/1.05 Poppins, sans-serif;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+/* tagline: always exactly 2 lines, never 3 */
+.brand p {
+  margin-top: 6px;
+  max-width: none;
+  font-size: clamp(12px, .95vw, 15px);
+  line-height: 1.4;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ---------- pitch ---------- */
+.pitch {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 440px;
+  margin: clamp(20px, 4vh, 48px) 0 0 clamp(0px, 3vw, 48px);
+  text-align: left;
+}
+
+.pitch h2 {
+  margin-bottom: 14px;
+  font: 700 clamp(24px, 2.3vw, 36px)/1.2 Poppins, sans-serif;
+  color: var(--navy);
+}
+
+.pitch p {
+  max-width: 360px;
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* =========================
+   RIGHT / FORM PANEL
+========================= */
+.panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: clamp(28px, 4vh, 56px) clamp(24px, 4vw, 72px);
+  background: var(--white);
+}
+
+.panel::before { display: none; }
+.panel::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  bottom: 0;
+  width: 70px;
+  height: 38%;
+  background: var(--navy);
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+  pointer-events: none;
+}
+
+.box {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: clamp(380px, 28vw, 440px);
+  margin: 0 auto;
+  text-align: left;
+}
+
+.boxicon {
+  display: block;
+  width: clamp(48px, 5vh, 64px);
+  height: clamp(48px, 5vh, 64px);
+  margin: 0 auto 6px;
+  color: var(--navy);
+}
+
+.box h2 {
+  font: 700 clamp(24px, 2.2vw, 34px)/1.2 Poppins, sans-serif;
+  color: var(--navy);
+  text-align: center;
+}
+
+.sub {
+  margin: 8px auto clamp(18px, 3vh, 32px);
+  max-width: 340px;
+  font-size: clamp(13px, .95vw, 15px);
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+}
+
+.box h3, .signin {
+  margin-bottom: 16px;
+  font: 700 clamp(20px, 1.6vw, 26px) Poppins, sans-serif;
+  color: var(--navy);
+}
+
+/* =========================
+   FIELDS
+========================= */
+.field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: var(--field-h);
+  margin-bottom: clamp(10px, 1.8vh, 18px);
+  padding: 0 14px;
+  color: var(--navy);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.field:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(230, 168, 16, .2);
+}
+
+.field svg { width: 20px; height: 20px; flex: none; }
+
+.field input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: clamp(14px, .95vw, 15px) Inter, sans-serif;
+}
+
+.field input::placeholder { color: #6B7280; opacity: 1; }
+
+.field button {
+  display: grid;
+  place-items: center;
+  flex: none;
+  padding: 0;
+  color: var(--text);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.field button svg { width: 20px; height: 20px; }
+
+/* =========================
+   REMEMBER / FORGOT
+========================= */
+.opts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 clamp(14px, 2.4vh, 24px);
+  font-size: clamp(12px, .85vw, 14px);
+}
+
+.chk { display: flex; align-items: center; gap: 9px; cursor: pointer; white-space: nowrap; }
+.chk input { width: 18px; height: 18px; margin: 0; accent-color: var(--navy); cursor: pointer; }
+
+.opts a { color: var(--text); font-weight: 500; text-decoration: none; white-space: nowrap; }
+.opts a:hover { color: var(--navy); text-decoration: underline; }
+
+.err { margin-bottom: 12px; color: #DC2626; font-size: 14px; text-align: left; }
+
+/* =========================
+   BUTTONS
+========================= */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: var(--field-h);
+  padding: 0 16px;
+  color: #1F2937;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  font: 600 clamp(15px, 1vw, 16px) Inter, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+
+.btn:hover { background: #F0B51A; border-color: #F0B51A; }
+.btn:focus-visible { outline: 3px solid rgba(230, 168, 16, .35); outline-offset: 2px; }
+.btn svg { width: 22px; height: 22px; }
+
+.btn.out {
+  color: var(--text);
+  background: var(--white);
+  border: 1px solid var(--line);
+  font-weight: 500;
+}
+.btn.out:hover { color: var(--navy); background: #F6F8FD; border-color: var(--navy); }
+
+.or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: clamp(10px, 2vh, 20px) 0;
+  color: #4B5563;
+  font-size: clamp(12px, .85vw, 14px);
+}
+.or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+/* "Already have an account? Log In" */
+.box p:not(.sub), .alt {
+  margin-top: 18px;
+  text-align: center;
+  font-size: clamp(13px, .95vw, 15px);
+  color: var(--text);
+}
+.box p:not(.sub) a, .alt a { color: var(--navy); font-weight: 600; text-decoration: none; }
+.box p:not(.sub) a:hover, .alt a:hover { text-decoration: underline; }
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 900px) {
+  .wrap { grid-template-columns: 1fr 1fr; }
+  .pitch { margin-left: 0; }
+  .brand p { white-space: normal; }
+  .hero::after { width: 56px; right: -26px; }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 700px) {
+  .wrap { display: flex; flex-direction: column; }
+
+  .hero {
+    min-height: 300px;
+    padding: 28px 20px;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #8FC0EE 0%, #EAF3FC 100%);
+  }
+  .hero::before { height: 55%; }
+  .hero::after { display: none; }
+
+  .brand { flex-direction: column; gap: 4px; text-align: center; }
+  .brand h1 { font-size: 34px; }
+  .brand p { font-size: 13px; white-space: normal; }
+  .pin { width: 52px; height: 52px; }
+
+  .pitch { display: none; }
+
+  .panel { display: block; padding: 24px 22px 36px; }
+  .panel::after { display: none; }
+  .box { max-width: 460px; }
+  .boxicon { display: none; }
+  .box h2 { font-size: 26px; }
+  .sub { display: none; }
+  .box h3, .signin { font-size: 22px; }
+}
+
+@media (max-width: 360px) {
+  .opts { font-size: 12px; }
+  .field { padding: 0 12px; }
 }
