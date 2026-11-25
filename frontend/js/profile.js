@@ -1,5 +1,5 @@
 (() => {
-  const db = window.sb;
+  const db = window.supabaseClient || window.sb;
   const $ = (s) => document.querySelector(s);
   let me = null;
 
@@ -9,7 +9,7 @@
     const p = document.createElement('p');
     p.className = 'tag' + (ok ? '' : ' w');
     p.style.cssText = 'display:inline-block;margin-bottom:12px';
-    p.textContent = text; // textContent avoids injecting server error strings as HTML
+    p.textContent = text; // textContent avoids injecting error strings as HTML
     m.appendChild(p);
     setTimeout(() => (m.innerHTML = ''), 4000);
   }
@@ -45,14 +45,34 @@
   }
 
   async function init() {
-    const { data: { user } } = await db.auth.getUser();
-    if (!user) return (location.href = 'login.html');
-    me = user;
+    if (!db) throw new Error('Supabase client not found. Check that js/supabase.js loads before this file.');
 
-    const { data, error } = await db.from('profiles').select('*').eq('id', me.id).single();
-    if (error) return flash('Could not load your profile.', false);
+    const { data: { session } } = await db.auth.getSession();
+    if (!session) { location.href = 'login.html'; return; }
+    me = session.user;
+
+    let { data, error } = await db.from('profiles').select('*').eq('id', me.id).maybeSingle();
+    if (error) throw error;
+
+    // no profile row yet: create one from the signup details
+    if (!data) {
+      const meta = me.user_metadata || {};
+      const base = {
+        id: me.id,
+        full_name: meta.full_name || (me.email || 'User').split('@')[0],
+        email: me.email,
+      };
+      let res = await db.from('profiles').insert({ ...base, student_id: meta.student_id || null }).select().single();
+      // student ID already taken by another account: retry without it
+      if (res.error && res.error.code === '23505') {
+        res = await db.from('profiles').insert({ ...base, student_id: null }).select().single();
+      }
+      if (res.error) throw res.error;
+      data = res.data;
+    }
+
     paint(data);
-    counts();
+    counts().catch(console.error);
   }
 
   $('#profileForm').addEventListener('submit', async (e) => {
@@ -92,5 +112,8 @@
     flash('Password updated.');
   });
 
-  init();
+  init().catch((e) => {
+    console.error('Profile init failed:', e);
+    flash('Error: ' + e.message, false);
+  });
 })();

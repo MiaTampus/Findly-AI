@@ -56,7 +56,6 @@
         const user = session.user;
 
         // block duplicate pending claims on the same item
-       
         const { data: existing } = await db.from('claims').select('id')
           .eq('item_id', itemId).eq('claimant_id', user.id).eq('status', 'pending').limit(1);
         if (existing?.length) { err.textContent = 'You already have a pending claim for this item.'; reset(); return; }

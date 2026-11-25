@@ -5,9 +5,28 @@ const NAV=[['dashboard','Dashboard','home'],['report-lost','Report Lost Item','b
 const B=document.body,pg=B.dataset.page;
 const content=document.createElement('main');content.className='main';
 while(B.firstChild)content.appendChild(B.firstChild);
-content.insertAdjacentHTML('afterbegin',`<header class="top"><button class="burger" id="bg">${ic('menu')}</button><div><h1>${B.dataset.title}</h1><p>${B.dataset.sub||''}</p></div><span class="sp"></span><button class="iconbtn">${ic('bell')}<i class="dot"></i></button><div class="avatar">M</div></header>`);
+content.insertAdjacentHTML('afterbegin',`<header class="top"><button class="burger" id="bg">${ic('menu')}</button><div><h1>${B.dataset.title}</h1><p>${B.dataset.sub||''}</p></div><span class="sp"></span><a class="iconbtn" href="notifications.html" aria-label="Notifications">${ic('bell')}<i class="dot"></i></a><div class="avatar">M</div></header>`);
 B.innerHTML=`<aside class="side" id="sd"><div class="logo">${ic('box')} Findly AI</div>${NAV.map(([k,l,i])=>`<a href="${k}.html" class="${k===pg?'on':''}">${ic(i)} ${l}${k==='matches'?'<span class="pill">AI</span>':''}</a>`).join('')}<a href="login.html" class="out">${ic('out')} Log Out</a></aside>`;
 B.appendChild(content);
 B.insertAdjacentHTML('beforeend',`<nav class="bnav">${[['dashboard','Home','home'],['report-lost','Report','plus'],['matches','Matches','spark'],['claims','Claims','user']].map(([k,l,i])=>`<a href="${k}.html" class="${k===pg?'on':''}">${ic(i)}${l}</a>`).join('')}</nav>`);
 document.getElementById('bg').onclick=()=>document.getElementById('sd').classList.toggle('open');
 document.addEventListener('click',e=>{const s=document.getElementById('sd');if(s.classList.contains('open')&&!s.contains(e.target)&&!e.target.closest('#bg'))s.classList.remove('open')});
+
+// ---- real avatar initials + working logout ----
+(async () => {
+  const c = window.supabaseClient || window.sb;
+  if (!c) return;
+
+  document.querySelector('.side .out')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await c.auth.signOut();
+    location.href = 'login.html';
+  });
+
+  const { data: { session } } = await c.auth.getSession();
+  const user = session?.user;
+  if (!user) return;
+  const name = user.user_metadata?.full_name || user.email || '?';
+  const av = document.querySelector('.top .avatar');
+  if (av) av.textContent = name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+})();
