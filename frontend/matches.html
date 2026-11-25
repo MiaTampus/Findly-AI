@@ -1,0 +1,6 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Findly AI</title><link rel="stylesheet" href="css/app.css"></head><body data-page="matches" data-title="AI Matches" data-sub="Possible matches for your item using AI.">
+<div class="card" id="list"></div>
+<script>
+[['🎒','Black Backpack',92],['👛','Brown Wallet',88],['🍶','Silver Water Bottle',76]].forEach(([e,n,s])=>list.insertAdjacentHTML('beforeend',`<div class="row"><div class="thumb">${e}</div><div class="info"><b>${n}</b><small>Similarity: <span class="${s>=80?'hi':'mid'}">${s}%</span></small></div><span class="tag ${s>=80?'':'w'}">${s>=80?'High Match':'Possible Match'}</span><a class="btn o sm" href="item-details.html">View Details</a></div>`));
+</script>
+<script src="js/layout.js"></script></body></html>

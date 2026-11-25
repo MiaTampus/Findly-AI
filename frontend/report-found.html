@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Findly AI</title><link rel="stylesheet" href="css/app.css"></head><body data-page="report-found" data-title="Report Found Item" data-sub="Provide the details of the item you found.">
+<form class="card form" id="f"><div><label style="margin-top:0">Photo</label><label class="upload" for="ph">📷<br>Upload Photo<small>JPG, PNG, up to 5MB</small></label><input id="ph" type="file" accept="image/png,image/jpeg" hidden></div>
+<div><label style="margin-top:0">Item Name *</label><input required placeholder="e.g., Black Backpack">
+<label>Description</label><textarea rows="4" placeholder="Color, brand, unique details, etc."></textarea>
+<div class="two"><div><label>Date Found *</label><input type="date" required></div><div><label>Location *</label><select required><option value="">e.g., Library, Canteen</option><option>Library</option><option>Canteen</option><option>Gym</option><option>Classroom</option></select></div></div>
+<div class="acts"><a class="btn o" href="dashboard.html">Cancel</a><button class="btn">Submit Report</button></div></div></form>
+<script>f.onsubmit=e=>{e.preventDefault();alert('Report submitted! (connect to backend)');location='dashboard.html'}</script>
+<script src="js/layout.js"></script></body></html>
